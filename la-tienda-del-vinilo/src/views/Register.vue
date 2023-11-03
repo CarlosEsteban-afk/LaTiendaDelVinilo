@@ -5,29 +5,29 @@
       <span class="material-symbols-outlined">person</span>
     </div>
     <form @submit.prevent="register">
-      <div class="form-group">
+      <div>
         <label for="username" style="display: none;">Nombre de Usuario</label>
         <input type="text" id="username" v-model="formData.username" placeholder="Nombre de Usuario" />
       </div>
-      <div class="form-group">
+      <div>
         <label for="password" style="display: none;">Contraseña</label>
         <input type="password" id="password" v-model="formData.password" placeholder="Contraseña" />
       </div>
-      <div class="form-group">
+      <div>
         <label for="email" style="display: none;">Correo Electrónico</label>
         <input type="email" id="email" v-model="formData.email" placeholder="Correo Electrónico" />
       </div>
-      <div class="form-group">
+      <div>
         <label for="name" style="display: none;">Nombre</label>
         <input type="text" id="name" v-model="formData.name" placeholder="Nombre" />
       </div>
-      <div class="form-group">
+      <div>
         <label for="lastname" style="display: none;">Apellido</label>
         <input type="text" id="lastname" v-model="formData.lastname" placeholder="Apellido" />
       </div>
     </form>
     <div class="page-container">
-      <v-btn color="primary" @click="register()">Entrar</v-btn>
+      <v-btn color="#DB2531" @click="register()">Entrar</v-btn>
       <div class="sidebar-image">
         <img src="../assets/viniloos2.png" alt="Imagen lateral" />
       </div>
@@ -119,10 +119,6 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.form-group {
-  margin-bottom: 15px;
 }
 
 label {

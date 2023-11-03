@@ -1,6 +1,5 @@
 <template>
     <div>
-      <h2>Estado de compras</h2>
       <v-table fixed-header
     height="300px">
     <thead>

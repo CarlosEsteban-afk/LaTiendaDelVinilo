@@ -12,13 +12,13 @@
             <v-col cols="1" style="align-self: center;">
                 <h4>{{ props.price }}</h4>
             </v-col>
-            <v-col cols="3" style="align-self: center;">
+            <v-col cols="4" style="align-self: center;">
                 <v-card-actions>
-                    <v-btn color="lighten-2" variant="tonal" @click="cartStore.add(props.id)">
+                    <v-btn color="lighten-2" variant="tonal" @click="cartStore.add(props.id)" style="margin: 15px;">
                         <span class="material-symbols-outlined">shopping_cart</span>
                         <p>Añadir al Carro</p>
                     </v-btn>
-                    <v-btn variant="text" @click="wishlistStore.add(props.id)" icon="">
+                    <v-btn variant="text" @click="wishlistStore.add(props.id)" icon="" style="">
                         x
                     </v-btn>
                 </v-card-actions>

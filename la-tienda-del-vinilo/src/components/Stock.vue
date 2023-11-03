@@ -1,6 +1,5 @@
 <template>
    <div>
-      <h2>Stock de productos</h2>
       <v-table fixed-header
     height="300px">
     <thead>
@@ -10,6 +9,7 @@
         <th class="text-left">Precio</th>
         <th class="text-left">Detalle</th>
         <th class="text-left">id</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -31,7 +31,7 @@
     </tbody>
   </v-table>
             <td>
-              <router-link class="button" to="/AddProduct"><v-btn color="blue">Agregar Productos</v-btn></router-link>
+              <router-link class="button" to="/AddProduct"><v-btn color="#DB2531">Agregar Productos</v-btn></router-link>
           </td>
     </div>
 </template>
