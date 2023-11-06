@@ -33,27 +33,27 @@ export const usersData = [
     email: 'usuario1@example.com',
     name: 'hector',
     lastname: 'salamanca',
-    id: 1,
+    id: 5,
   },
   {
     username: 'Usuario2',
     email: 'usuario1@example.com',
     name: 'hector',
     lastname: 'salamanca',
-    id: 2,
+    id: 6,
   },{
     username: 'Usuario3',
     email: 'usuario1@example.com',
     name: 'hector',
     lastname: 'salamanca',
-    id: 3,
+    id: 7,
   },
   {
     username: 'Usuario4',
     email: 'usuario1@example.com',
     name: 'hector',
     lastname: 'salamanca',
-    id: 4,
+    id: 8,
   },
   
 ];
