@@ -7,23 +7,23 @@
     <form @submit.prevent="register">
       <div>
         <label for="username" style="display: none;">Nombre de Usuario</label>
-        <input type="text" id="username" v-model="formData.username" placeholder="Nombre de Usuario" />
+        <input type="text" id="username" v-model="formData.username" placeholder="Nombre de Usuario" required />
       </div>
       <div>
         <label for="password" style="display: none;">Contraseña</label>
-        <input type="password" id="password" v-model="formData.password" placeholder="Contraseña" />
+        <input type="password" id="password" v-model="formData.password" placeholder="Contraseña" required />
       </div>
       <div>
         <label for="email" style="display: none;">Correo Electrónico</label>
-        <input type="email" id="email" v-model="formData.email" placeholder="Correo Electrónico" />
+        <input type="email" id="email" v-model="formData.email" placeholder="Correo Electrónico" @blur="validateEmail" required />
       </div>
       <div>
         <label for="name" style="display: none;">Nombre</label>
-        <input type="text" id="name" v-model="formData.name" placeholder="Nombre" />
+        <input type="text" id="name" v-model="formData.name" placeholder="Nombre" required />
       </div>
       <div>
         <label for="lastname" style="display: none;">Apellido</label>
-        <input type="text" id="lastname" v-model="formData.lastname" placeholder="Apellido" />
+        <input type="text" id="lastname" v-model="formData.lastname" placeholder="Apellido" required />
       </div>
     </form>
     <div class="page-container">
@@ -50,6 +50,15 @@ export default {
     };
   },
   methods: {
+    validateEmail() {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(this.formData.email)) {
+        this.emailError = 'Por favor, ingrese un correo electrónico válido.';
+      } else {
+        this.emailError = '';
+      }
+    },
+
     clearPlaceholder(fieldName) {
       if (this.formData[fieldName] !== '') {
         document.getElementById(fieldName).classList.add('input-filled');
@@ -60,12 +69,19 @@ export default {
     register() {
       // logica para agregar datos
       // establece 3 caracteres minimos para la contraseña
+      this.validateEmail();
       if (this.formData.password.length < 3) {
         alert('La contraseña debe tener al menos 3 caracteres.');
         return; 
-      } else {
-        this.$router.push('/profile');
-        }
+      } const fields = Object.values(this.formData);
+      if (fields.some(field => !field)) {
+        alert('Por favor, complete todos los campos.');
+        return;
+      } if (this.emailError) {
+        // Si hay un error en el correo, detener el registro
+        alert('Correo Electronico no valido.');
+        return;
+      }
       userData.users.push(this.formData);
       console.log('Datos enviados:', this.formData);
       this.formData = {
@@ -75,6 +91,7 @@ export default {
         name: '',
         lastname: '',
       };
+      this.$router.push('/profile');
     },
   },
 };
