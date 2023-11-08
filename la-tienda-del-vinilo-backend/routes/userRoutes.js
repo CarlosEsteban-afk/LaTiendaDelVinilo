@@ -12,4 +12,7 @@ router.post('/users',userController.createUser);
 //Login
 router.post('/users/login',userController.loginUser);
 
+//update
+router.put('/users',userController.updateUser);
+
 module.exports = router;

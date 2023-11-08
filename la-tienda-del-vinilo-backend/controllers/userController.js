@@ -36,3 +36,26 @@ exports.loginUser = async (req, res) =>{
         res.status(500).send('Error al ingresar el usuario');
     }
 };
+
+exports.updateUser = async (req,res)=>{
+    const userId = parseInt(req.body.id);
+    try{
+        const updatedUser = await User.findOneAndUpdate({id: userId},
+            {
+                username: req.body.username,
+                password: req.body.password,
+                email: req.body.email,
+                name: req.body.name,
+                lastname: req.body.lastname
+            },{
+                new: true
+            });
+        if (!updatedUser) {
+          res.status(404).send('usuario no encontrado');
+        } 
+        res.json(updatedUser);
+    }catch(error){
+        console.error('Error al actualizar el usuario:', error);
+        res.status(500).send('Error al actualizar el usuario');
+    }
+};
