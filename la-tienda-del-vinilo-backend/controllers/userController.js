@@ -49,6 +49,8 @@ exports.addToWishlist = async (req, res) => {
     }
 };
 
+
+
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -56,6 +58,7 @@ exports.getAllUsers = async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+
 }
 
 exports.getUserWishlist = async (req, res) => {
@@ -93,5 +96,47 @@ exports.createUser = async (req, res) => {
         res.status(201).json(user);
     } catch (error) {
         res.status(500).send({ error: 'Internal server error' });
+};
+
+
+
+exports.loginUser = async (req, res) =>{
+    const userName = req.body.username;
+    const userPassword = req.body.password;
+    try {
+        const loginUser = await User.find({ username: userName,password: userPassword });
+        //si el array es 0 es por que no existe
+        if (loginUser.length==0) {
+            return res.status(404).send('usuario no encontrado');
+        }
+        res.status(202).json(loginUser);
+        
+    } catch (error) {
+        console.error('Error al ingresar el usuario:', error);
+        res.status(500).send('Error al ingresar el usuario');
+    }
+};
+
+exports.updateUser = async (req,res)=>{
+    const userId = parseInt(req.body.id);
+    try{
+        const updatedUser = await User.findOneAndUpdate({id: userId},
+            {
+                username: req.body.username,
+                password: req.body.password,
+                email: req.body.email,
+                name: req.body.name,
+                lastname: req.body.lastname
+            },{
+                new: true
+            });
+        if (!updatedUser) {
+          res.status(404).send('usuario no encontrado');
+        } 
+        res.json(updatedUser);
+    }catch(error){
+        console.error('Error al actualizar el usuario:', error);
+        res.status(500).send('Error al actualizar el usuario');
+
     }
 };
