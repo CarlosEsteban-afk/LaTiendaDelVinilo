@@ -8,6 +8,7 @@ exports.getAllProducts = async (req, res) => {
         console.log(err);
     }
 };
+//este metodo es usado por el adm
 exports.createProduct = async (req, res) => {
     const { id, name, stock, price, description, category, rating, imgUrl } = req.body;
     const newProduct = new Product({ id, name, stock, price, description, category, rating, imgUrl });
@@ -16,5 +17,40 @@ exports.createProduct = async (req, res) => {
         res.status(201).json(savedProduct);
     } catch (err) {
         res.status(500).send('Internal Server Error');
+    }
+};
+
+exports.searchProductById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        console.log(id);
+
+        const product = await Product.find({ id });
+        console.log(product);
+        if (!product) {
+            return res.status(404).send('Producto no encontrado')
+        }
+        res.json(product)
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+exports.searchProductByName = async (req, res) => {
+    console.log("aca");
+    const { name } = req.body;
+    try {
+        console.log(name);  
+        console.log("aca");
+
+        const product = await Product.find({ name: { $regex: name, $options: "i" } });
+        console.log(product);
+        if (!product) {
+            return res.status(404).send('Producto no encontrado')
+        }
+        res.json(product)
+
+    } catch (err) {
+        console.log(err);
     }
 };
