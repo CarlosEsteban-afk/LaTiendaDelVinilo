@@ -7,7 +7,9 @@ exports.addToCart = async (req, res) => {
 
         const result = await User.findOne({ rut });
 
+
         console.log(result);
+
         result.cartItems.push({ id, name, stock, price, description, category, rating, imgUrl });
         try {
             result.save();
@@ -50,7 +52,6 @@ exports.addToWishlist = async (req, res) => {
 };
 
 
-
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -58,6 +59,7 @@ exports.getAllUsers = async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+
 
 }
 
@@ -140,3 +142,6 @@ exports.updateUser = async (req,res)=>{
 
     }
 };
+
+
+
