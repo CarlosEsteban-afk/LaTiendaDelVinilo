@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
   password: String,
   rut: String,
   cartItems: [],
-  wishlistItems: []
+  wishlistItems: [],
+  previousPurchases: []
 });
 
 module.exports = mongoose.model('users', userSchema);    

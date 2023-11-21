@@ -1,5 +1,6 @@
 const Product = require('../models/productModel');
 
+
 exports.getAllProducts = async (req, res) => {
     try {
         const products = await Product.find();
@@ -21,7 +22,7 @@ exports.createProduct = async (req, res) => {
 };
 
 
-exports.deleteProduct = async (req,res)=>{
+exports.deleteProduct = async (req, res) => {
     const productId = parseInt(req.body.id);
     try {
         const deletedProduct = await Product.findOneAndDelete({ id: productId });
@@ -35,10 +36,10 @@ exports.deleteProduct = async (req,res)=>{
     }
 };
 
-exports.updateProduct = async (req,res)=>{
+exports.updateProduct = async (req, res) => {
     const productId = parseInt(req.body.id);
-    try{
-        const updatedProduct = await Product.findOneAndUpdate({id: productId},
+    try {
+        const updatedProduct = await Product.findOneAndUpdate({ id: productId },
             {
                 name: req.body.name,
                 stock: req.body.stock,
@@ -47,14 +48,14 @@ exports.updateProduct = async (req,res)=>{
                 category: req.body.category,
                 rating: req.body.rating,
                 imgUrl: req.body.imgUrl
-            },{
-                new: true
-            });
+            }, {
+            new: true
+        });
         if (!updatedProduct) {
-          res.status(404).send('Producto no encontrado');
-        } 
+            res.status(404).send('Producto no encontrado');
+        }
         res.json(updatedProduct);
-    }catch(error){
+    } catch (error) {
         console.error('Error al actualizar el producto:', error);
         res.status(500).send('Error al actualizar el producto');
     }
@@ -80,7 +81,7 @@ exports.searchProductByName = async (req, res) => {
     console.log("aca");
     const { name } = req.body;
     try {
-        console.log(name);  
+        console.log(name);
         console.log("aca");
 
         const product = await Product.find({ name: { $regex: name, $options: "i" } });
