@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
+const cors = require('cors');
 
 
 const app = express();
@@ -10,7 +11,7 @@ const app = express();
 mongoose.connect('mongodb://127.0.0.1:27017/la_tienda_del_vinilo');
 
 app.use(bodyParser.json())
-
+app.use(cors());
 app.use('/api', productRoutes);
 app.use('/api', userRoutes);
 
