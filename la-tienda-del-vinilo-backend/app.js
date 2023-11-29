@@ -5,11 +5,11 @@ const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const cors = require('cors');
 
-
+//import path from 'path';
 const app = express();
 
 mongoose.connect('mongodb://127.0.0.1:27017/la_tienda_del_vinilo');
-
+//app.use('/images',express.static(path.join(__dirname,'../assets')));
 app.use(bodyParser.json())
 app.use(cors());
 app.use('/api', productRoutes);

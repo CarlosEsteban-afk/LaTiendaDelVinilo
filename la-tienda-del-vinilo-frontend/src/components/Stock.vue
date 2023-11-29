@@ -13,23 +13,27 @@
       </tr>
     </thead>
     <tbody>
-        <tr v-for="item in datos" :key="item.name">
+        <tr v-for="item in info" :key="item.name">
         <td>{{ item.name }}</td>
-          <td>{{ item.amount }}</td>
-          <td>{{ item.price }}</td>
+        <td>{{ item.stock }}</td>
+        <td>{{ item.price }}</td> 
           <td>
             <v-avatar style="width: 64px; height: 64px;">
-                 <img :src="item.detail"/>
+                 <img :src="item.imgUrl"/>
                 </v-avatar>
           </td>
           <td>{{ item.id }}</td>
           <td>
             <v-btn  color="primary" @click="editProduct(item)">Editar</v-btn>
-            <v-btn color="error" @click="deleteProduct(item)">Eliminar</v-btn>
+            <v-btn color="error" @click="deleteProduct(item.id)">Eliminar</v-btn>
           </td>
       </tr>
     </tbody>
   </v-table>
+        <v-snackbar v-model="showSuccessMessage" color="success">
+                  Producto eliminado exitosamente.
+                    <v-btn text @click="showSuccessMessage = false">Cerrar</v-btn>
+          </v-snackbar>
             <td>
               <router-link class="button" to="/AddProduct"><v-btn color="#DB2531">Agregar Productos</v-btn></router-link>
           </td>
@@ -37,22 +41,37 @@
 </template>
 
 <script>
-import { stockData } from '../data/dataStock.js';
+import axios from 'axios';
 export default {
     data () {
       return {
-        datos: stockData,
-    
+        info: [],
+        showSuccessMessage: false,
       }
     },
-    methods: {
-      editProduct(producto) {
-     
-    },
-    deleteProduct(producto) {
-      
-    },
+    created() {
+    this.showProducts();
   },
+    methods: {
+      async showProducts(){
+    try{
+      const response = await axios.get('http://localhost:5000/api/products');
+      this.info = response.data;
+    }catch (error) {
+        console.error('Error get user:', error);
+      }
+    },
+    async deleteProduct(productId){
+        try{
+          await axios.delete('http://localhost:5000/api/products',{
+          data: { id: productId },});
+        this.info = this.info.filter(item => item.id !== productId);
+        this.showSuccessMessage = true;
+        }catch(error){
+          console.error('Error get user:', error);
+        }
+    }
+    },
 }
 </script>
 
