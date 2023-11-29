@@ -7,6 +7,7 @@
         <th class="text-left">Nombre del producto</th>
         <th class="text-left">Stock</th>
         <th class="text-left">Precio</th>
+        <th class="text-left">Categoria</th>
         <th class="text-left">Detalle</th>
         <th class="text-left">id</th>
         <th></th>
@@ -17,6 +18,7 @@
         <td>{{ item.name }}</td>
         <td>{{ item.stock }}</td>
         <td>{{ item.price }}</td> 
+        <td>{{ item.category }}</td>
           <td>
             <v-avatar style="width: 64px; height: 64px;">
                  <img :src="item.imgUrl"/>
