@@ -19,6 +19,6 @@ router.get('/users/user/:rut/wishlist', userController.getUserWishlist);
 router.get('/users/user/:rut/previouspurchases', userController.getUserPreviousPurchases);
 
 
-// router.get('/users/user', userController.getOneUser); (pendiente)
+ router.get('/users/user/:rut', userController.getUser); 
 
 module.exports = router;

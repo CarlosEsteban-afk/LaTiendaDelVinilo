@@ -1,24 +1,46 @@
 import { defineStore } from "pinia";
-import data from "@/data/data";
-
+import axios from 'axios';
+import { useProductStore } from './ProductStore';
+import { useUserStore } from './UserStore';
 
 export const useCartStore = defineStore("CartStore",
     {
         state: () => {
             return {
-                cartContent: {},
+                cartContent: [],
             }
         },
 
         actions: {
-            add(productId) {
-                if (this.cartContent.hasOwnProperty(productId)) {
+            async loadUser(rut) {
+                try {
+                    const response = await axios.get(`http://localhost:5000/api/users/user/${rut}`);
+                    const res = response.data;
+                    console.log("response.data: ", res);
+                    console.log("cartcontet.data: ", this.cartContent);
 
+
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+            async add(productId) {
+                this.loadUser("203670605");
+                const productStore = useProductStore();
+
+                const product = async () => {
+                    return await productStore.findItemById(productId);
+                }
+                const productResult = await product();
+                console.log("productResult: ", productResult);
+
+                axios.post(`http://localhost:5000/api/users/user/cart/203670605`, ...productResult);
+
+                if (this.cartContent.hasOwnProperty(productId)) {
                     this.cartContent[productId] = {
                         productId,
                         quantity: this.cartContent[productId].quantity + 1,
                     }
-
                 } else {
                     this.cartContent[productId] = {
                         productId,
@@ -27,10 +49,20 @@ export const useCartStore = defineStore("CartStore",
                 }
 
             },
-            remove(productId) {
+            async remove(productId) {
+                const productStore = useProductStore();
                 if (!this.cartContent[productId]) {
                     return
                 }
+                const product = async () => {
+                    return await productStore.findItemById(productId);
+                }
+                const productResult = await product();
+                console.log("productResult: ", productResult);
+
+                axios.delete(`http://localhost:5000/api/users/user/cart/203670605`, {
+                    productId,
+                });
                 this.cartContent[productId].quantity -= 1;
 
                 if (this.cartContent[productId].quantity === 0) {
@@ -46,15 +78,17 @@ export const useCartStore = defineStore("CartStore",
         getters: {
 
             formattedCart() {
+                const productStore = useProductStore();
+
                 return Object.keys(this.cartContent).map(productId => {
                     const product = this.cartContent[productId];
-
                     return {
+
                         id: product.productId,
-                        name: data.find((data) => data.id === product.productId).name,
-                        price: data.find((data) => data.id === product.productId).price,
+                        name: productStore.data.find((data) => data.id === product.productId).name,
+                        price: productStore.data.find((data) => data.id === product.productId).price,
                         quantity: product.quantity,
-                        cost: product.quantity * data.find((data) => data.id === product.productId).price,
+                        cost: product.quantity * productStore.data.find((data) => data.id === product.productId).price,
 
                     }
                 })

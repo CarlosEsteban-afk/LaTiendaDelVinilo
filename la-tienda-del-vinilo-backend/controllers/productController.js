@@ -2,6 +2,7 @@ const Product = require('../models/productModel');
 
 
 exports.getAllProducts = async (req, res) => {
+
     try {
         const products = await Product.find();
         res.json(products);
@@ -76,21 +77,19 @@ exports.searchProductById = async (req, res) => {
         console.log(err);
     }
 };
+exports.searchProducts = async (req, res) => {
+    const name = req.query.name;
+    let query = {};
+    if (name) {
+        query = { name: { $regex: name, $options: "i" } };
+    }
 
-exports.searchProductByName = async (req, res) => {
-    console.log("aca");
-    const { name } = req.body;
     try {
-        console.log(name);
-        console.log("aca");
-
-        const product = await Product.find({ name: { $regex: name, $options: "i" } });
-        console.log(product);
+        const product = await Product.findOne(query);
         if (!product) {
             return res.status(404).send('Producto no encontrado')
         }
         res.json(product)
-
     } catch (err) {
         console.log(err);
     }

@@ -84,7 +84,6 @@
       </div>
 
 
-
     </div>
 
 
@@ -95,16 +94,7 @@
 import { useCartStore } from '@/stores/CartStore';
 import Searchbar from '@/components/Searchbar.vue';
 import ProfileButton from '@/components/ProfileButton.vue';
-
 const cartStore = useCartStore();
-
-
-console.log(cartStore.productsTotal);
-
-console.log(cartStore.formattedCart)
-
-
-
 </script>
 
 <style lang ="scss">

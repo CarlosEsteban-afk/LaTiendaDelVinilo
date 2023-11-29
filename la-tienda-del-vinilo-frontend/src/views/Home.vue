@@ -47,9 +47,8 @@
                                     @click="cartStore.add(datas.id)"></v-btn>
                             </v-sheet>
                             <v-sheet class="ma-2 pa-2">
-                                <v-btn color="#520100" variant="tonal"
-                                    @click="wishlistStore.add(datas.id)">
-                                <v-icon>mdi-heart</v-icon>
+                                <v-btn color="#520100" variant="tonal" @click="wishlistStore.add(datas.id)">
+                                    <v-icon>mdi-heart</v-icon>
                                 </v-btn>
                             </v-sheet>
                             <v-sheet class="ma-2 pa-2">
@@ -73,28 +72,35 @@
             <Card v-for="datas in data" :id="datas.id" :name="datas.name" :description="datas.description"
                 :rating="datas.rating" :price="datas.price"></Card>
 
+
         </v-sheet>
-
-
-
-
 
     </main>
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import Searchbar from '../components/Searchbar.vue';
 import ProfileButton from '@/components/ProfileButton.vue';
 import Card from '../components/Card.vue';
-import data from '../data/data.js';
 import CategoryButton from '../components/CategoryButton.vue'
 import { useCartStore } from '../stores/CartStore'
+import { useProductStore } from '@/stores/ProductStore';
 import { useWishlistStore } from '@/stores/WishlistStore';
+import { ref } from 'vue';
+
+const productStore = useProductStore();
 const cartStore = useCartStore();
-
 const wishlistStore = useWishlistStore();
+let data=ref([]);
 
-console.log(wishlistStore.formattedList);
+
+onMounted(async () => {
+    await productStore.fetchProducts();
+    data.value = productStore.data;
+});
+
+
 
 </script>
 
