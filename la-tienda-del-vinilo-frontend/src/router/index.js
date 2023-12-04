@@ -9,7 +9,8 @@ import EditProfile from '../views/EditProfile.vue'
 import Userview from '../views/Userview'
 import Admin from '../views/Admin'
 import AddProduct from '@/views/AddProduct.vue'
-
+import ProdcutDetail from '../views/ProductDetail.vue'
+import NotFound from '../views/NotFound.vue'
 const router = createRouter(
     {
         history: createWebHistory(),
@@ -63,6 +64,17 @@ const router = createRouter(
                 path: '/AddProduct',
                 name: 'AddProduct',
                 component: AddProduct
+            },
+            {
+                path: '/productdetail/:id',
+                name: 'ProductDetail',
+                component: ProdcutDetail,
+                props: true
+            },
+            {
+                path: "/:pathMatch(.*)*",
+                name: "not-found",
+                component: NotFound,
             },
         ]
     }

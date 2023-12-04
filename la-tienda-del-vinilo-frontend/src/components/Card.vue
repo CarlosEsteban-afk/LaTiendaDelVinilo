@@ -28,7 +28,7 @@
           <div class="text-grey ms-4">
             {{ props.rating }} (+50)
           </div>
-          
+
           <div class="my-4 px-4 text-subtitle-1">
             $ • {{ props.price }}
           </div>
@@ -36,7 +36,7 @@
 
         </v-row>
         <!-- precio -->
-       
+
         <v-card-actions style="display: inline;">
           <v-btn color="lighten-2" variant="text" icon="" @click="wishlistStore.add(props.id)">
             <div v-if="liked()">
@@ -105,10 +105,6 @@ const props = defineProps({
   price: Number,
 });
 
-function iterImg(productId) {
-
-}
-console.log(props.id);
 
 const cartStore = useCartStore();
 

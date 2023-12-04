@@ -1,34 +1,30 @@
 <template>
-
-   
     <v-form>
         <v-text-field append-inner-icon="mdi-magnify" clearable v-model="keyword" label="Buscar"
-            @change="search"></v-text-field>
+            @update:model-value="search()"></v-text-field>
+
 
     </v-form>
-
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import products from '../data/data.js'
+import { useProductStore } from '@/stores/ProductStore';
+import router from '@/router';
 
-const keyword = ref("");
+const productStore = useProductStore();
+const keyword = ref('');
+let findItem = ref([]);
 
-
-function search() {
-    const findItem = products.filter(
-        (item) => item.name === keyword.value
-    );
+const search = async () => {
+    findItem = await productStore.findItemByName(keyword.value);
+    console.log(findItem);
     if (findItem) {
-        console.log(findItem)
-
-    } else {
-        console.log("nada encontrado");
-    }
-
-
+        router.push({ name: 'ProductDetail', params: { id: findItem.id } })
+    } 
 }
+
+
 
 </script>
 

@@ -5,10 +5,11 @@ const productRoutes = require('./routes/productRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
 
 const app = express();
-const cors = require('cors')
+const cors = require('cors');
 
 mongoose.connect('mongodb://127.0.0.1:27017/la_tienda_del_vinilo');
-app.use(cors())
+app.use(cors());
+
 app.use(bodyParser.json())
 
 app.use('/api', productRoutes);

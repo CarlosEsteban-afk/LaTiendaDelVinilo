@@ -8,8 +8,8 @@ exports.addToCart = async (req, res) => {
         const result = await User.findOne({ rut });
         console.log(result);
 
-        result.cartItems.push({ id, name, stock, price, description, category, rating, imgUrl });
         try {
+            result.cartItems.push({ id, name, stock, price, description, category, rating, imgUrl });
             result.save();
         } catch (error) {
             console.log(error);
@@ -202,3 +202,14 @@ exports.editUser = async (req, res) => {
         res.status(500).send('Error al actualizar el usuario');
     }
 };
+
+exports.getUser = async (req, res) => {
+    const { rut } = req.params;
+    const result = await User.findOne({ rut });
+    console.log(result);
+    try {
+        res.json(result);
+    } catch (err) {
+        console.log(err);
+    }
+}
