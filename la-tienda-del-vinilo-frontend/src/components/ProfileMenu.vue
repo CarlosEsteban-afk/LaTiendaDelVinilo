@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link class="button" to="/userview">
+        <router-link class="button" to="/users/user/:rut/userview">
             <v-btn color="#F8E3E3" icon="">
                 <span class="material-symbols-outlined">
                     shelves

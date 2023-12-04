@@ -112,8 +112,17 @@ console.log(props.id);
 
 const cartStore = useCartStore();
 
-
+const rut = "203675153";
 const wishlistStore = useWishlistStore();
+
+import { onMounted } from 'vue';
+
+let wishlist = ref({});
+onMounted(async () => {
+    wishlist = await wishlistStore.fetchWishlist(rut);
+    console.log(wishlist)
+});
+
 const loved = ref(false);
 function liked() {
   if (wishlistStore.formattedList.find(item => item.id === props.id)) {

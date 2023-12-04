@@ -60,7 +60,7 @@
         </v-card>
         <br>
         <div class="d-flex align-center">
-            <router-link class="button" to="/profile">
+            <router-link class="button" to="/api/users/user/:rut">
                 <v-btn color="#F8E3E3">
                     <h5 class="ma-1">Guardar cambios</h5>
                     <span class="material-symbols-outlined">
@@ -74,9 +74,10 @@
 
 <script setup>
 import { ref } from 'vue'
-import products from '../data/data.js'
 const keyword = ref("");
-import Searchbar from '../components/Searchbar.vue';
+
+import { useUserStore } from '../stores/UserStore';
+const userStore = useUserStore();
 
 function validateEmail(){}
 
@@ -84,6 +85,7 @@ function validateNewUsername(){}
 
 </script>
 
-<style lang="scss">.TextField {
+<style lang="scss">
+.TextField {
     padding-right: 25px;
 }</style>

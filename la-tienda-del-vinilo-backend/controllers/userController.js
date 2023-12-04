@@ -91,6 +91,17 @@ exports.getAllUsers = async (req, res) => {
     }
 }
 
+exports.getOneUser = async (req, res) => {
+    const { rut } = req.params;
+    try {
+        const user = await User.findOne({ rut })
+        res.json(user);
+        console.log(user);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 exports.getUserWishlist = async (req, res) => {
     const { rut } = req.params;
     const result = await User.findOne({ rut });
