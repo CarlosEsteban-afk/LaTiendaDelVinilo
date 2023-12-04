@@ -1,7 +1,7 @@
 <template>
     <main class="profile-page">
         <div class="d-flex align-center">
-            <h1>Perfil</h1> <router-link class="button" to="/editprofile"> 
+            <h1>Perfil</h1> <router-link class="button" to="/editprofile">
                 <v-tooltip activator="parent" location="end">
                     Editar perfil
                 </v-tooltip>
@@ -16,7 +16,7 @@
             <div class="d-flex flex-no-wrap">
                 <v-row no-gutters>
                     <v-col cols="3">
-                        <v-avatar class="ma-8" size="230" rounded="0" color=#f1f5f9 >
+                        <v-avatar class="ma-8" size="230" rounded="0" color=#f1f5f9>
                             <span class="material-symbols-outlined">
                                 person
                             </span>
@@ -29,7 +29,7 @@
                                 <p class="UserInfoLabel">Nombre:</p>
                             </v-col>
                             <v-col align-self="center">
-                                <p>Hector</p>
+                                <p> {{ user.name }} </p>
                             </v-col>
                         </v-row>
                         <br>
@@ -38,7 +38,7 @@
                                 <p class="UserInfoLabel">Apellido:</p>
                             </v-col>
                             <v-col align-self="center">
-                                <p>Salamanca</p>
+                                <p>{{ user.lastname }}</p>
                             </v-col>
                         </v-row>
                         <br>
@@ -47,7 +47,7 @@
                                 <p class="UserInfoLabel">Correo electrónico:</p>
                             </v-col>
                             <v-col align-self="center">
-                                <p>hector32@gmail.com</p>
+                                <p>{{ user.email }}</p>
                             </v-col>
                         </v-row>
                         <br>
@@ -56,7 +56,7 @@
                                 <p class="UserInfoLabel">Usuario:</p>
                             </v-col>
                             <v-col align-self="center">
-                                <p>hector32</p>
+                                <p>{{ user.username }}</p>
                             </v-col>
                         </v-row>
                     </v-col>
@@ -70,11 +70,20 @@
 
 <script setup>
 import { ref } from 'vue'
-import products from '../data/data.js'
 import ProfileMenu from '../components/ProfileMenu.vue'
 import { useWishlistStore } from '@/stores/WishlistStore';
 const wishlistStore = useWishlistStore;
-const keyword = ref("");
+let user = ref({});
+const rut = "203675153";
+
+import { useUserStore } from '../stores/UserStore';
+import { onMounted } from 'vue';
+
+const userStore = useUserStore();
+
+onMounted(async () => {
+    user = await userStore.fetchUser(rut);
+});
 </script>
 
 <style lang="scss">
@@ -83,7 +92,8 @@ const keyword = ref("");
     width: 200px;
     color: var(--grey);
 }
-.UserInfoLabel{
-    margin:10px;
+
+.UserInfoLabel {
+    margin: 10px;
 }
 </style>

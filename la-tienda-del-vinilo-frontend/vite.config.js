@@ -47,4 +47,7 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  devServer: {
+    proxy: 'http://localhost:5000'
+  }
 })

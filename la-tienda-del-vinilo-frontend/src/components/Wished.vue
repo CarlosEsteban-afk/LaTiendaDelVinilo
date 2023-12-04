@@ -6,7 +6,7 @@
             </v-col>
             <v-col cols="4" style="align-self: center;">
                 <v-card-item>
-                    <v-card-title>{{ props.name }}</v-card-title>
+                    <v-card-title>{{ props.id }}</v-card-title>
                 </v-card-item>
             </v-col>
             <v-col cols="1" style="align-self: center;">
