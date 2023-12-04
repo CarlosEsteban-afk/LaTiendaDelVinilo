@@ -12,12 +12,7 @@ router.get('/searchProducts', productController.searchProducts);
 router.post('/products', productController.createProduct);
 
 //delete product
-router.delete('/products', productController.deleteProduct);
 
-//update product
-router.put('/products', productController.updateProduct);
-
-router.get('/products/:id', productController.searchProductById)
 
 //router.get('/products', productController.searchProductByName)
 
