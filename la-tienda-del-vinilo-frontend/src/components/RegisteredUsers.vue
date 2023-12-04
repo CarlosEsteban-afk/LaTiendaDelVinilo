@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in datos" :key="item.name">
+      <tr v-for="item in info" :key="item.name">
         <td>{{ item.username }}</td>
           <td>{{ item.email }}</td>
           <td>{{ item.name }}</td>
@@ -25,15 +25,24 @@
   </template>
   
   <script>
-  import { usersData } from '../data/dataUsers.js';
+  import axios from 'axios';
+  
   export default {
     data () {
       return {
-        datos: usersData,
-       
+        info: [],
       }
     },
-}
+   async created(){
+    
+    try{
+      const response = await axios.get('http://localhost:5000/api/users');
+      this.info = response.data;
+    }catch (error) {
+        console.error('Error get user:', error);
+      }
+    }
+  }
   </script>
 
 ../data/dataUsers.js

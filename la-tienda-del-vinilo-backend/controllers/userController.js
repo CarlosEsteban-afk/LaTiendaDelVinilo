@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const Product = require('../models/productModel');
 
 exports.addToCart = async (req, res) => {
     try {
@@ -69,14 +70,20 @@ exports.addToWishlist = async (req, res) => {
         console.log(result);
 
         try {
-            result.wishlistItems.push({ id, name, stock, price, description, category, rating, imgUrl });
-            result.save();
+            const product = await Product.findOne({ id });
+            if(product){
+               result.wishlistItems.push({ id, name, stock, price, description, category, rating, imgUrl });
+            }
+            else {
+                const found = await Product.find({id});
+               result.wishlistItems.pop(found);
+            }
+         await result.save();   
+
         } catch (error) {
             console.log(error);
         }
-
         res.json(result)
-
     } catch (err) {
         console.log(err);
     }
@@ -155,21 +162,23 @@ exports.createUser = async (req, res) => {
     const { rut, username, email, name, lastname, password } = req.body;
     const user = new User({ rut, username, email, name, lastname, password });
     try {
-        const savedUser = await newUser.save();
-        await user.save();
-        res.status(201).json(user);
+        const savedUser = await user.save();
+        res.status(201).json(savedUser);
     } catch (error) {
         res.status(500).send({ error: 'Internal server error' });
-    };
-}
 
-exports.loginUser = async (req, res) => {
+}
+};
+
+
+exports.loginUser = async (req, res) =>{
     const userName = req.body.username;
     const userPassword = req.body.password;
     try {
-        const loginUser = await User.find({ username: userName, password: userPassword });
+        const loginUser = await User.findOne({ username: userName,password: userPassword });
         //si el array es 0 es por que no existe
-        if (loginUser.length == 0) {
+        if (!loginUser) {
+
             return res.status(404).send('usuario no encontrado');
         }
         res.status(202).json(loginUser);
@@ -203,6 +212,7 @@ exports.editUser = async (req, res) => {
     }
 };
 
+
 exports.getUser = async (req, res) => {
     const { rut } = req.params;
     const result = await User.findOne({ rut });
@@ -213,3 +223,4 @@ exports.getUser = async (req, res) => {
         console.log(err);
     }
 }
+
