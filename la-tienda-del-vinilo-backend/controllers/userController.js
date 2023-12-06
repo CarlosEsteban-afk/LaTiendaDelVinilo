@@ -69,19 +69,21 @@ exports.addToWishlist = async (req, res) => {
 
         try {
             const product = await Product.findOne({ id });
-            if (product) {
+            if(product){
                 result.wishlistItems.push({ id, name, stock, price, description, category, rating, imgUrl });
+        
             }
             else {
                 const found = await Product.find({ id });
                 result.wishlistItems.pop(found);
             }
-            await result.save();
+        await result.save();   
 
         } catch (error) {
             console.log(error);
         }
         res.json(result)
+        
     } catch (err) {
         console.log(err);
     }

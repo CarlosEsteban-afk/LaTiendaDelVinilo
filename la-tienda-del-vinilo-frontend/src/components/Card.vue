@@ -122,10 +122,15 @@ import { onMounted } from 'vue';
 
 let wishlist = ref({});
 onMounted(async () => {
-  wishlist = await wishlistStore.fetchWishlist(rut);
-  console.log(wishlist)
+  await wishlistStore.fetchWishlist(rut).then((res) => { wishlist.value = res });
 });
 
+async function wished() {
+  const found = await wishlistStore.findOne(props.id, rut);
+  console.log(found);
+  return found
+}
+wished();
 const loved = ref(false);
 function liked() {
   if (wishlistStore.formattedList.find(item => item.id === props.id)) {

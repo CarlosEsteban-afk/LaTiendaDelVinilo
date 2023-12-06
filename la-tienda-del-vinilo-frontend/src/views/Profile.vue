@@ -71,8 +71,9 @@
 <script setup>
 import { ref } from 'vue'
 import ProfileMenu from '../components/ProfileMenu.vue'
-import { useWishlistStore } from '@/stores/WishlistStore';
-const wishlistStore = useWishlistStore;
+
+const props = defineProps({})
+
 let user = ref({});
 const rut = "203675153";
 
@@ -82,8 +83,9 @@ import { onMounted } from 'vue';
 const userStore = useUserStore();
 
 onMounted(async () => {
-    user = await userStore.fetchUser(rut);
+    await userStore.fetchUser(rut).then((res) => { user.value = res });
 });
+console.log(user.value);
 </script>
 
 <style lang="scss">

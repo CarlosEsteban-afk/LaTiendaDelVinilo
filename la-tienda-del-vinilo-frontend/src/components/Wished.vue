@@ -33,7 +33,7 @@ import { useCartStore } from '@/stores/CartStore';
 const wishlistStore = useWishlistStore();
 const cartStore = useCartStore();
 const props = defineProps({
-    id: Number,
+    id: String,
     name: String,
     price: Number,
 });

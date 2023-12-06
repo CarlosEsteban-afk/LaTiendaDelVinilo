@@ -21,31 +21,30 @@ export const useWishlistStore = defineStore("WishlistStore",
                         });
                         console.log(response.data);
                     } catch (error) {
-
+                        console.error('Error al eliminar producto deseado', error);
                     }
                 } else {
                     this.wishlistContent[productId] = {
                         productId,
                     }
                     try {
-                        //const product = axios.get(`http://localhost:5000/api/products/:id`);
+                        const product = await axios.get(`http://localhost:5000/api/products/${productId}`);
+                        console.log(product);
                         const response = await axios.post(`http://localhost:5000/api/users/user/203675153/wishlist`, {
                             id: productId,
-                            name: this.wishlistContent[productId].name,
-                            stock: this.wishlistContent[productId].stock,
-                            price: this.wishlistContent[productId].price,
-                            description: this.wishlistContent[productId].description,
-                            category: this.wishlistContent[productId].category,
-                            rating: this.wishlistContent[productId].rating, 
-                            imgUrl: this.wishlistContent[productId].imgUrl, 
+                            name: product.name,
+                            stock: product.stock,
+                            price: product.price,
+                            description: product.description,
+                            category: product.category,
+                            rating: product.rating, 
+                            imgUrl: product.imgUrl,
                         });
                         console.log(response.data);
                     } catch (error) {
-
+                        console.error('Error al guardar producto deseado', error);
                     }
                 }
-
-
             },
             async fetchWishlist(rut) {
                 try {
@@ -59,12 +58,18 @@ export const useWishlistStore = defineStore("WishlistStore",
                     console.error('Error fetching user:', error);
                 }
             },
-            findOne(productId) {
-                if (this.wishlistContent.productId) {
+            async findOne(productId, rut) {
+                const response = await axios.get(`http://localhost:5000/api/users/user/${rut}`);
+                const user = response.data;
+                const wishlistUser = await this.fetchWishlist(user.rut);
+                if (wishlistUser.wishlistContent[productId]) {
                     return true
                 } else {
                     return false
                 }
+            },
+            getWishlist(){
+                return this.wishlistContent
             }
         },
 
@@ -79,6 +84,7 @@ export const useWishlistStore = defineStore("WishlistStore",
                     }
                 })
             },
+            
         },
     }
 );

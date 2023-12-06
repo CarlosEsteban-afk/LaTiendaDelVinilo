@@ -21,7 +21,7 @@
                             <v-window-item v-for="n in 3" :key="n" :value="1">
                                 <v-container fluid>
                                     <Wished v-for="item in wishlist" :id="item.id" :name="item.name" :price="item.price">
-  vc                                   </Wished>
+                                    </Wished>
                                 </v-container>
                             </v-window-item>
                             <v-window-item v-for="n in 3" :key="n" :value="2">
@@ -60,20 +60,21 @@ import { useCartStore } from '@/stores/CartStore';
 
 const dataOrder = stockOrder;
 const dataPreviousOrders = dataOrders;
-const wishlistStore = useWishlistStore().fetchWishlist(rut);
+const wishlistStore = useWishlistStore()
 const tab = ref(null);
 
 import { onMounted } from 'vue';
 
-let wishlist = ref({});
 const rut = "203675153";
 
+let wishlist = ref({});
 onMounted(async () => {
-    wishlist = (await wishlistStore).wishlistContent;
-    console.log(wishlist);
+    await wishlistStore.fetchWishlist(rut).then((res) => { wishlist.value = res.wishlistContent 
+    console.log(res)
+    });
 });
-</script>
-edw12q      
+console.log(wishlist)
+</script> 
 <style lang="scss">
 .navbar {
     height: 500px;

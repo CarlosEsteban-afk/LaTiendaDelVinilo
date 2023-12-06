@@ -43,7 +43,8 @@ const router = createRouter(
 
                 path: '/users/user/:rut',
                 name: 'profile',
-                component: Profile
+                component: Profile,
+                props: true
             },
             {
                 path: '/editprofile',
@@ -53,7 +54,8 @@ const router = createRouter(
             {
                 path: '/users/user/:rut/userview',
                 name: 'userview',
-                component: Userview
+                component: Userview,
+                props: true
             },
             {
                 path: '/admin',

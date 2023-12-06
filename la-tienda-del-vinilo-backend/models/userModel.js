@@ -39,8 +39,26 @@ const userSchema = new mongoose.Schema({
     rating: Number,
     imgUrl: String
   }],
-  wishlistItems: { type: Object },
-  previousPurchases: { type: Object }
+  wishlistItems: [{
+    id: String,
+    name: String,
+    stock: Number,
+    price: Number,
+    description: String,
+    category: String,
+    rating: Number,
+    imgUrl: String
+  }],
+  previousPurchases: [{
+    id: String,
+    name: String,
+    stock: Number,
+    price: Number,
+    description: String,
+    category: String,
+    rating: Number,
+    imgUrl: String
+  }]
 });
 
 //agregar boolean de admin???? 
