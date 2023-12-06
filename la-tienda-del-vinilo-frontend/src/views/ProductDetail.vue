@@ -1,25 +1,30 @@
 <template>
-    <main class="about-page">
-
+    <main class="product-detail">
         <Searchbar />
-
-        <ProfileButton style="display: flex; justify-content: end;"></ProfileButton>
+        <div class="item">
+            <h1>Vista detallada</h1>
+            <ProfileButton />
+        </div>
         <v-divider class="mb-4"></v-divider>
-        {{ products }}
         <div v-for="product in products" class="mt-7">
             <v-sheet>
                 <v-row>
                     <v-col style="height: 20rem;">
-                        <v-img src="../assets/logo.png"></v-img>
+
+                        <v-img crossorigin :src="product.imgUrl"></v-img>
                     </v-col>
-                    <v-col >
+                    <v-col>
                         <div class="mb-2">
                             <h1>{{ product.name }}</h1>
+                            <div>
+                                <v-rating :model-value="product.rating" color="amber" density="compact" half-increments
+                                    readonly size="big"></v-rating>
+                            </div>
+
                         </div>
                         <div class="mt-2">
                             {{ product.description }}
                         </div>
-
                     </v-col>
 
                 </v-row>
@@ -47,8 +52,6 @@ onMounted(async () => {
     products.value = await productStore.findItemById(props.id);
 
 })
-
-
 </script>
 
 <style lang="scss">

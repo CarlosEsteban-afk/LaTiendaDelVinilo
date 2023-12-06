@@ -17,6 +17,7 @@ const keyword = ref('');
 let findItem = ref([]);
 
 const search = async () => {
+    
     findItem = await productStore.findItemByName(keyword.value);
     console.log(findItem);
     if (findItem) {

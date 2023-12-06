@@ -4,7 +4,7 @@
 
     <v-card :loading="loading" width="400" style="height: fit-content;" variant="tonal">
 
-      <v-img height="250" cover src="../assets/logo.png" />
+      <v-img height="250" cover :src="props.imgUrl" />
 
       <template v-slot:loader="{ isActive }">
         <v-progress-linear :active="isActive" color="red" height="4" indeterminate></v-progress-linear>
@@ -66,16 +66,22 @@
 
             <v-row>
               <v-col cols="6">
-                <v-img src="../assets/logo.png"></v-img>
+                <v-img :src="props.imgUrl"></v-img>
               </v-col>
               <v-col cols="6">
                 <v-card :title="props.name">
+                  <v-card-text>
+                    <h4> {{ props.price }}</h4>
+                  </v-card-text>
                   <v-card-text>
                     {{ props.description }}
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn text="Cerrar" @click="isActive.value = false"></v-btn>
+
+                    <v-btn text="Añadir al Carro" color="#520100" variant="tonal"
+                      @click="cartStore.add(props.id)"></v-btn>
                   </v-card-actions>
                 </v-card>
               </v-col>
@@ -103,6 +109,7 @@ const props = defineProps({
   description: String,
   rating: Number,
   price: Number,
+  imgUrl: String,
 });
 
 
@@ -115,8 +122,8 @@ import { onMounted } from 'vue';
 
 let wishlist = ref({});
 onMounted(async () => {
-    wishlist = await wishlistStore.fetchWishlist(rut);
-    console.log(wishlist)
+  wishlist = await wishlistStore.fetchWishlist(rut);
+  console.log(wishlist)
 });
 
 const loved = ref(false);

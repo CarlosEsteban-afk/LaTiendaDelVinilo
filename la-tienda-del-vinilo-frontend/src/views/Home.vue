@@ -16,7 +16,7 @@
                     <v-row class="car">
 
                         <v-col cols="5" style="height: 20rem;">
-                            <v-img src="../assets/logo.png"></v-img>
+                            <v-img :src="datas.imgUrl"></v-img>
 
                         </v-col>
                         <v-col cols="7" style="height: fit-content;">
@@ -70,7 +70,7 @@
 
         <v-sheet class="d-flex flex-wrap ">
             <Card v-for="datas in data" :id="datas.id" :name="datas.name" :description="datas.description"
-                :rating="datas.rating" :price="datas.price"></Card>
+                :rating="datas.rating" :price="datas.price" :imgUrl="datas.imgUrl"></Card>
 
 
         </v-sheet>
