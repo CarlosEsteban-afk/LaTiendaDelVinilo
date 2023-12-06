@@ -19,7 +19,7 @@
 
         </v-row>
     </v-card>
-    <br>
+
 </template>
 <script setup>
 const props = defineProps ({
