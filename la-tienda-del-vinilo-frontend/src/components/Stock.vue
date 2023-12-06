@@ -9,7 +9,7 @@
         <th class="text-left">Precio</th>
         <th class="text-left">Categoria</th>
         <th class="text-left">Detalle</th>
-        <th class="text-left">id</th>
+        <th class="text-left">Id</th>
         <th></th>
       </tr>
     </thead>
