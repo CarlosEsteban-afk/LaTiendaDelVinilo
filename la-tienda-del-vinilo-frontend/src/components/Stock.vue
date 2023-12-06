@@ -7,6 +7,7 @@
         <th class="text-left">Nombre del producto</th>
         <th class="text-left">Stock</th>
         <th class="text-left">Precio</th>
+        <th class="text-left">Descripcion</th>
         <th class="text-left">Categoria</th>
         <th class="text-left">Detalle</th>
         <th class="text-left">Id</th>
@@ -17,7 +18,8 @@
         <tr v-for="item in info" :key="item.name">
         <td>{{ item.name }}</td>
         <td>{{ item.stock }}</td>
-        <td>{{ item.price }}</td> 
+        <td>{{ item.price }}</td>
+        <td>{{ item.description }}</td>  
         <td>{{ item.category }}</td>
           <td>
             <v-avatar style="width: 64px; height: 64px;">
@@ -47,6 +49,7 @@
         <v-text-field v-model="editedProduct.name" label="Nombre del Producto"></v-text-field>
         <v-text-field v-model="editedProduct.stock" label="Stock del Producto" type="number"></v-text-field>
         <v-text-field v-model="editedProduct.price" label="Precio del Producto" type="number"></v-text-field>
+        <v-text-field v-model="editedProduct.description" label="Descripcion del Producto"></v-text-field>
         <v-select
             v-model="editedProduct.category"
             :items="categoryOptions"
@@ -84,6 +87,7 @@ export default {
       return (
         this.editedProduct.name &&
         this.editedProduct.stock &&
+        this.editedProduct.description &&
         this.editedProduct.price &&
         this.editedProduct.category &&
         this.editedProduct.imgUrl
@@ -122,6 +126,7 @@ export default {
          await axios.put('http://localhost:5000/api/products/', {
           id: productId,
           name: this.editedProduct.name,
+          description: this.editedProduct.description,
           stock: this.editedProduct.stock,
           price: this.editedProduct.price,
           category: this.editedProduct.category,
