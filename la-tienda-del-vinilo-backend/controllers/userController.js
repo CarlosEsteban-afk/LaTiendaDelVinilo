@@ -7,11 +7,10 @@ exports.addToCart = async (req, res) => {
         const { id, name, stock, price, description, category, rating, imgUrl } = req.body
 
         const result = await User.findOne({ rut });
-        console.log(result);
-
         try {
             result.cartItems.push({ id, name, stock, price, description, category, rating, imgUrl });
-            result.save();
+            console.log(result.cartItems);
+            await result.save().then(res => console.log(res)).catch(err => console.log(err));
         } catch (error) {
             console.log(error);
         }
@@ -27,10 +26,9 @@ exports.getUserCart = async (req, res) => {
     const { rut } = req.params;
     const result = await User.findOne({ rut })
     const userCart = result.cartItems;
-    if (!userCart) {
+    if (userCart.length === 0) {
         return res.status(404).send('Carrito vacio');
     }
-
     res.json(userCart);
 
 };
@@ -71,14 +69,14 @@ exports.addToWishlist = async (req, res) => {
 
         try {
             const product = await Product.findOne({ id });
-            if(product){
-               result.wishlistItems.push({ id, name, stock, price, description, category, rating, imgUrl });
+            if (product) {
+                result.wishlistItems.push({ id, name, stock, price, description, category, rating, imgUrl });
             }
             else {
-                const found = await Product.find({id});
-               result.wishlistItems.pop(found);
+                const found = await Product.find({ id });
+                result.wishlistItems.pop(found);
             }
-         await result.save();   
+            await result.save();
 
         } catch (error) {
             console.log(error);
@@ -114,6 +112,7 @@ exports.getUserWishlist = async (req, res) => {
     const result = await User.findOne({ rut });
     console.log(result);
     try {
+
         const items = await result.wishlistItems;
         res.json(items);
     } catch (err) {
@@ -167,15 +166,15 @@ exports.createUser = async (req, res) => {
     } catch (error) {
         res.status(500).send({ error: 'Internal server error' });
 
-}
+    }
 };
 
 
-exports.loginUser = async (req, res) =>{
+exports.loginUser = async (req, res) => {
     const userName = req.body.username;
     const userPassword = req.body.password;
     try {
-        const loginUser = await User.findOne({ username: userName,password: userPassword });
+        const loginUser = await User.findOne({ username: userName, password: userPassword });
         //si el array es 0 es por que no existe
         if (!loginUser) {
 

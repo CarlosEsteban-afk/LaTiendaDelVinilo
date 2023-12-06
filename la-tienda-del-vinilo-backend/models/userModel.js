@@ -29,7 +29,16 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Rut required.'],
     unique: true,
   },
-  cartItems: { type: Object },
+  cartItems:  [{
+    id: String,
+    name: String,
+    stock: Number,
+    price: Number,
+    description: String,
+    category: String,
+    rating: Number,
+    imgUrl: String
+}],
   wishlistItems: { type: Object },
   previousPurchases: { type: Object }
 });

@@ -13,11 +13,14 @@ export const useCartStore = defineStore("CartStore",
 
         actions: {
             async loadUser(rut) {
+                //aqui deberia existir manejo de token
                 try {
+                    const productStore = useProductStore();
                     const response = await axios.get(`http://localhost:5000/api/users/user/${rut}`);
                     const res = response.data;
-                    console.log("response.data: ", res);
-                    console.log("cartcontet.data: ", this.cartContent);
+                    console.log("response.data: ", res.cartItems);
+
+                    console.log(" cartcontent.data: ", this.cartContent);
 
 
                 } catch (error) {
@@ -25,7 +28,7 @@ export const useCartStore = defineStore("CartStore",
                 }
             },
             async add(productId) {
-                this.loadUser("203670605");
+                this.loadUser("203670605")
                 const productStore = useProductStore();
 
                 const product = async () => {

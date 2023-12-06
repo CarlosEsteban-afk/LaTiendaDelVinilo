@@ -21,7 +21,7 @@ const search = async () => {
     console.log(findItem);
     if (findItem) {
         router.push({ name: 'ProductDetail', params: { id: findItem.id } })
-    } 
+    }
 }
 
 

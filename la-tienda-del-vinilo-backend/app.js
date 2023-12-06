@@ -9,9 +9,16 @@ const cors = require('cors');
 
 
 const app = express();
-const cors = require('cors');
 
-mongoose.connect('mongodb://127.0.0.1:27017/la_tienda_del_vinilo');
+mongoose.connect('mongodb://127.0.0.1:27017/la_tienda_del_vinilo').then(() => {
+    console.log('Connected to database 😎');
+})
+    .catch((error) => {
+        console.log(error);
+        process.exit(-1);
+    });;
+
+
 app.use(cors());
 
 app.use(bodyParser.json())

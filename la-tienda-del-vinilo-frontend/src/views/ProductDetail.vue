@@ -4,17 +4,27 @@
         <Searchbar />
 
         <ProfileButton style="display: flex; justify-content: end;"></ProfileButton>
-
-        {{ products }}
-
         <v-divider class="mb-4"></v-divider>
+        {{ products }}
+        <div v-for="product in products" class="mt-7">
+            <v-sheet>
+                <v-row>
+                    <v-col style="height: 20rem;">
+                        <v-img src="../assets/logo.png"></v-img>
+                    </v-col>
+                    <v-col >
+                        <div class="mb-2">
+                            <h1>{{ product.name }}</h1>
+                        </div>
+                        <div class="mt-2">
+                            {{ product.description }}
+                        </div>
 
-        <div v-for="product in products">
-            {{ product.name }}
-            {{ product.price }}
-            {{ product.rating }}
-            {{ product.category }}
+                    </v-col>
 
+                </v-row>
+
+            </v-sheet>
         </div>
 
     </main>

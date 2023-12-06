@@ -94,7 +94,12 @@
 import { useCartStore } from '@/stores/CartStore';
 import Searchbar from '@/components/Searchbar.vue';
 import ProfileButton from '@/components/ProfileButton.vue';
+import { onMounted } from 'vue';
 const cartStore = useCartStore();
+
+onMounted(() => {
+  cartStore.loadUser("203670605");
+});
 </script>
 
 <style lang ="scss">

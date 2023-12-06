@@ -22,6 +22,7 @@ export const useProductStore = defineStore("ProductStore",
                 try {
                     const { data } = await axios.get(`http://localhost:5000/api/searchProducts?name=${name}`);
                     const response = data;
+                    console.log(response);
                     return response;
                 } catch (error) {
                     console.log("producto no encontrado");
@@ -33,7 +34,7 @@ export const useProductStore = defineStore("ProductStore",
                     const response = data;
                     return response;
                 } catch (error) {
-                    console.log("producto no encontrado");
+                    console.log("error: " , error);
                 }
             }
 

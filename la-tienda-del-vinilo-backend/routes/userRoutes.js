@@ -35,7 +35,6 @@ router.post('/users',userController.createUser);
  router.post('/users/login',userController.loginUser);
 
 //update
- router.put('/users',userController.updateUser);
 
 
 router.get('/users/user/:rut', userController.getOneUser);
