@@ -75,7 +75,7 @@ import ProfileMenu from '../components/ProfileMenu.vue'
 const props = defineProps({})
 
 let user = ref({});
-const rut = "203675153";
+const rut = "203670605";
 
 import { useUserStore } from '../stores/UserStore';
 import { onMounted } from 'vue';

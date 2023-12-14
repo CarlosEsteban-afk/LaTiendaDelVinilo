@@ -15,11 +15,10 @@ export const useWishlistStore = defineStore("WishlistStore",
                     delete this.wishlistContent[productId];
 
                     try {
-                        const response = await axios.delete(`http://localhost:5000/api/users/user/203675153/wishlist`, {
+                        const response = await axios.delete(`http://localhost:5000/api/users/user/203670605/wishlist`, {
                             data: { id: productId }
 
                         });
-                        console.log(response.data);
                     } catch (error) {
                         console.error('Error al eliminar producto deseado', error);
                     }
@@ -29,28 +28,36 @@ export const useWishlistStore = defineStore("WishlistStore",
                     }
                     try {
                         const product = await axios.get(`http://localhost:5000/api/products/${productId}`);
-                        console.log(product);
-                        const response = await axios.post(`http://localhost:5000/api/users/user/203675153/wishlist`, {
+                        const productInfo = product.data; 
+                        const response = await axios.post(`http://localhost:5000/api/users/user/203670605/wishlist`, {
                             id: productId,
-                            name: product.name,
-                            stock: product.stock,
-                            price: product.price,
-                            description: product.description,
-                            category: product.category,
-                            rating: product.rating, 
-                            imgUrl: product.imgUrl,
+                            name: productInfo[0].name,
+                            stock: productInfo[0].stock,
+                            price: productInfo[0].price,
+                            description: productInfo[0].description,
+                            category: productInfo[0].category,
+                            rating: productInfo[0].rating, 
+                            imgUrl: productInfo[0].imgUrl,
                         });
-                        console.log(response.data);
                     } catch (error) {
                         console.error('Error al guardar producto deseado', error);
                     }
+                }
+            },
+            async removeFromWishlist(productId){
+                try {
+                    const response = await axios.delete(`http://localhost:5000/api/users/user/203670605/wishlist`, {
+                        data: { id: productId }
+
+                    });
+                } catch (error) {
+                    console.error('Error al eliminar producto deseado', error);
                 }
             },
             async fetchWishlist(rut) {
                 try {
                     const response = await axios.get(`http://localhost:5000/api/users/user/${rut}`);
                     const user = response.data;
-                    console.log(response.data);
                     return {
                         wishlistContent: user.wishlistItems,
                     }

@@ -6,7 +6,7 @@
             </v-col>
             <v-col cols="4" style="align-self: center;">
                 <v-card-item>
-                    <v-card-title>{{ props.id }}</v-card-title>
+                    <v-card-title>{{ props.name }}</v-card-title>
                 </v-card-item>
             </v-col>
             <v-col cols="1" style="align-self: center;">
@@ -18,7 +18,7 @@
                         <span class="material-symbols-outlined">shopping_cart</span>
                         <p>Añadir al Carro</p>
                     </v-btn>
-                    <v-btn variant="text" @click="wishlistStore.add(props.id)" icon="" style="">
+                    <v-btn variant="text" @click="wishlistStore.removeFromWishlist(props.id)" icon="" style="">
                         x
                     </v-btn>
                 </v-card-actions>

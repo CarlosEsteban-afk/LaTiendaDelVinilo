@@ -115,7 +115,7 @@ const props = defineProps({
 
 const cartStore = useCartStore();
 
-const rut = "203675153";
+const rut = "203670605";
 const wishlistStore = useWishlistStore();
 
 import { onMounted } from 'vue';
@@ -127,7 +127,6 @@ onMounted(async () => {
 
 async function wished() {
   const found = await wishlistStore.findOne(props.id, rut);
-  console.log(found);
   return found
 }
 wished();

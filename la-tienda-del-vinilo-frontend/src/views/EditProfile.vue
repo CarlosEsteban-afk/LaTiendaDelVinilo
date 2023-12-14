@@ -60,7 +60,7 @@
         </v-card>
         <br>
         <div class="d-flex align-center">
-            <router-link class="button" to="/api/users/user/:rut">
+            <router-link class="button" to="/users/user/:rut">
                 <v-btn color="#F8E3E3">
                     <h5 class="ma-1">Guardar cambios</h5>
                     <span class="material-symbols-outlined">
@@ -76,7 +76,7 @@
 import { ref } from 'vue'
 const keyword = ref("");
 let user = ref({});
-const rut = "203675153";
+const rut = "203670605";
 
 import { useUserStore } from '../stores/UserStore';
 import { onMounted } from 'vue';

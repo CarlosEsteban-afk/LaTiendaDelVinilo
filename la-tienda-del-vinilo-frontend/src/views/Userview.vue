@@ -65,15 +65,13 @@ const tab = ref(null);
 
 import { onMounted } from 'vue';
 
-const rut = "203675153";
+const rut = "203670605";
 
 let wishlist = ref({});
 onMounted(async () => {
     await wishlistStore.fetchWishlist(rut).then((res) => { wishlist.value = res.wishlistContent 
-    console.log(res)
     });
 });
-console.log(wishlist)
 </script> 
 <style lang="scss">
 .navbar {

@@ -18,10 +18,6 @@ export const useCartStore = defineStore("CartStore",
                     const productStore = useProductStore();
                     const response = await axios.get(`http://localhost:5000/api/users/user/${rut}`);
                     const res = response.data;
-                    console.log("response.data: ", res.cartItems);
-
-                    console.log(" cartcontent.data: ", this.cartContent);
-
 
                 } catch (error) {
                     console.error(error);
